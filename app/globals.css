@@ -2,3 +2,32 @@
 
 /* Sewage Clean Pros restoration truck and credibility showcase */
 .truck-showcase{padding:64px 0;background:#f5f8fa}.truck-showcase-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:40px;align-items:center}.truck-showcase-image{min-height:380px;border-radius:10px;background:#e9f0f5 url('/images/truck-showcase.webp') center center/cover no-repeat;box-shadow:0 10px 30px #092f501c}.truck-showcase-content h2{font-size:clamp(28px,3vw,39px);line-height:1.14;color:#092f50;margin:12px 0}.truck-showcase-content>p{color:#51697a;line-height:1.65}.truck-benefits{display:grid;grid-template-columns:1fr 1fr;gap:22px 15px;margin:26px 0}.truck-benefits>div{display:flex;align-items:flex-start;gap:10px}.truck-benefits>div>span{font-size:24px;color:#d9a21b;min-width:26px}.truck-benefits b{display:block;color:#0a3555;font-size:14px}.truck-benefits small{display:block;color:#627786;font-size:12px;margin-top:5px;line-height:1.4}.truck-caption{font-size:11px!important;margin-top:17px;color:#718391!important}@media(max-width:900px){.truck-showcase-grid{grid-template-columns:1fr}.truck-showcase-image{min-height:320px}}@media(max-width:520px){.truck-showcase{padding:42px 0}.truck-showcase-image{min-height:220px}.truck-benefits{gap:18px 10px}.truck-benefits b{font-size:12px}.truck-benefits small{font-size:11px}}
+
+
+/* Locally bundled, service-specific restoration imagery */
+.hero-image{background-image:url('/images/hero-cleanup.webp');background-position:66% 45%;filter:none}
+.service-photo{background-image:linear-gradient(180deg,transparent 55%,#082d4c40),url('/images/sewage-backup.webp')}
+.service-1 .service-photo{background-image:linear-gradient(180deg,transparent 55%,#082d4c40),url('/images/basement-cleanup.webp')}
+.service-2 .service-photo{background-image:linear-gradient(180deg,transparent 55%,#082d4c40),url('/images/emergency-cleanup.webp')}
+.service-3 .service-photo{background-image:linear-gradient(180deg,transparent 55%,#082d4c40),url('/images/water-extraction.webp')}
+.why-photo{background-image:linear-gradient(#062c4a20,#062c4a20),url('/images/restoration-team.webp')}
+@media(max-width:650px){.hero-image{background-position:60% center}.hero-shade{background:linear-gradient(90deg,#062b4cf5,#073b62b0)}}
+
+/* Hero composition adjustment: preserve technician and equipment in frame */
+@media (min-width: 651px) {
+  .hero { min-height: 480px; background-color: #082d4c; }
+  .hero-image {
+    left: 43%; right: 0; top: 0; bottom: 0;
+    background-color: #082d4c;
+    background-size: auto 94%;
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+  .hero-shade { background: linear-gradient(90deg,#062b4c 0%,#073b62f5 36%,#073b62a0 57%,#082c4508 100%); }
+  .hero-content { padding-top: 70px; padding-bottom: 70px; }
+}
+@media (max-width: 650px) {
+  .hero { min-height: 565px; background-color: #082d4c; }
+  .hero-image { background-size: auto 78%; background-repeat: no-repeat; background-position: right top; }
+  .hero-shade { background: linear-gradient(90deg,#062b4ce9 0%,#073b62c9 65%,#073b6270 100%); }
+}
