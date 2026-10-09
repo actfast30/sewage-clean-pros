@@ -8,3 +8,22 @@
 .service-3 .service-photo{background-image:linear-gradient(180deg,transparent 55%,#082d4c40),url('/images/water-extraction.webp')}
 .why-photo{background-image:linear-gradient(#062c4a20,#062c4a20),url('/images/restoration-team.webp')}
 @media(max-width:650px){.hero-image{background-position:60% center}.hero-shade{background:linear-gradient(90deg,#062b4cf5,#073b62b0)}}
+
+/* Hero composition adjustment: preserve technician and equipment in frame */
+@media (min-width: 651px) {
+  .hero { min-height: 480px; background-color: #082d4c; }
+  .hero-image {
+    left: 43%; right: 0; top: 0; bottom: 0;
+    background-color: #082d4c;
+    background-size: auto 94%;
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+  .hero-shade { background: linear-gradient(90deg,#062b4c 0%,#073b62f5 36%,#073b62a0 57%,#082c4508 100%); }
+  .hero-content { padding-top: 70px; padding-bottom: 70px; }
+}
+@media (max-width: 650px) {
+  .hero { min-height: 565px; background-color: #082d4c; }
+  .hero-image { background-size: auto 78%; background-repeat: no-repeat; background-position: right top; }
+  .hero-shade { background: linear-gradient(90deg,#062b4ce9 0%,#073b62c9 65%,#073b6270 100%); }
+}
