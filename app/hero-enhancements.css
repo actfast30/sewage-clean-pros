@@ -13,3 +13,27 @@
 .hero-feature-panel .hero-note{font-size:11px;text-align:center}
 @media(max-width:900px){.hero-servpro-layout{grid-template-columns:1fr;gap:20px;padding-top:48px;padding-bottom:46px}.hero-servpro-copy{max-width:620px}.hero-feature-panel{max-width:650px}.hero-servpro-layout .hero-lead{max-width:540px}}
 @media(max-width:650px){.hero-servpro-layout{padding-top:40px;padding-bottom:42px}.hero-feature-panel{padding:21px 16px}.hero-feature-grid{gap:14px 10px}.hero-feature-item{font-size:12px}.hero-brandline{font-size:10px}.hero-servpro-layout .hero-lead{font-size:16px}.hero-servpro-layout .hero-cta{font-size:14px}}
+/* Homepage-only operator portrait. Keep existing hero, photos and truck intact. */
+@media (min-width: 1100px) {
+  .hero::after {
+    content:"";
+    position:absolute;
+    z-index:1;
+    pointer-events:none;
+    left:max(0px,calc((100vw - 1450px)/2));
+    bottom:0;
+    width:clamp(155px,16vw,230px);
+    height:92%;
+    background:url('/images/operator-portrait.webp') left bottom / contain no-repeat;
+  }
+  .hero-servpro-layout { padding-left:clamp(155px,16vw,230px); grid-template-columns:minmax(0,0.9fr) minmax(390px,1.3fr); gap:18px; }
+  .hero-servpro-layout h1 {font-size:clamp(35px,3.5vw,53px);letter-spacing:-1.4px}
+  .hero-servpro-layout .hero-feature-panel {padding:23px 20px}
+}
+@media (min-width: 901px) and (max-width: 1099px) {
+  .hero::after {content:"";position:absolute;z-index:1;pointer-events:none;left:0;bottom:0;width:130px;height:70%;background:url('/images/operator-portrait.webp') left bottom / contain no-repeat}
+  .hero-servpro-layout {padding-left:110px;grid-template-columns:minmax(0,1fr) minmax(320px,1.2fr);gap:14px}
+  .hero-servpro-layout h1 {font-size:clamp(33px,4vw,45px)}
+}
+/* On smaller screens prioritize readable text, CTA and technician photograph. */
+@media(max-width:900px){.hero::after{display:none}}
