@@ -31,3 +31,37 @@
   .hero-image { background-size: auto 78%; background-repeat: no-repeat; background-position: right top; }
   .hero-shade { background: linear-gradient(90deg,#062b4ce9 0%,#073b62c9 65%,#073b6270 100%); }
 }
+
+/* Compact, polished mobile header: preserve desktop navigation and hero. */
+@media (max-width: 650px) {
+  .topstrip-inner { padding-top: 6px; padding-bottom: 6px; font-size: 10px; }
+  .header { box-shadow: 0 2px 10px #102d4917; }
+  .nav {
+    min-height: 0;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    row-gap: 8px;
+    column-gap: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo { font-size: 15px; gap: 8px; letter-spacing: -.5px; }
+  .logo-symbol { font-size: 20px; padding: 7px; border-radius: 8px; }
+  .logo strong { font-size: 13px; letter-spacing: 3px; margin-top: 2px; }
+  .logo small { font-size: 7px; letter-spacing: 1.6px; margin-top: 3px; }
+  .nav nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 5px;
+    padding-top: 7px;
+    border-top: 1px solid #e8eef2;
+    font-size: 11px;
+    line-height: 1.2;
+  }
+  .nav nav a { padding: 4px 3px; white-space: nowrap; }
+}
