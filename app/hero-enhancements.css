@@ -56,3 +56,19 @@
   .hero-servpro-layout { padding-top: 183px; padding-bottom: 28px; }
   .hero-servpro-layout h1 { font-size: 36px; }
 }
+
+/* Mobile hero reading order: headline, services/call panel, explanatory copy. */
+@media (max-width: 900px) {
+  .hero-servpro-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .hero-servpro-copy { display: contents; }
+  .hero-brandline { order: 1; }
+  .hero-servpro-copy .eyebrow { order: 2; }
+  .hero-servpro-copy h1 { order: 3; margin-bottom: 15px; }
+  .hero-feature-panel { order: 4; width: 100%; max-width: none; margin-bottom: 15px; }
+  .hero-servpro-copy .hero-lead { order: 5; max-width: none; margin: 0; }
+}
