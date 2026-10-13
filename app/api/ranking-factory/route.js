@@ -6,7 +6,7 @@ function verify(request, rawBody, secret) {
   const id = request.headers.get('webhook-id');
   const timestamp = request.headers.get('webhook-timestamp');
   const signatures = request.headers.get('webhook-signature') || '';
-  if (!id || !timestamp || !/^\\d+$/.test(timestamp)) return false;
+  if (!id || !timestamp || !/^\d+$/.test(timestamp)) return false;
   if (Math.abs(Date.now() / 1000 - Number(timestamp)) > 300) return false;
   const key = secret.startsWith('whsec_')
     ? Buffer.from(secret.slice(6), 'base64')
@@ -16,7 +16,7 @@ function verify(request, rawBody, secret) {
       .update(id + '.' + timestamp + '.' + rawBody)
       .digest('base64')
   );
-  return signatures.split(/\\s+/).some((value) => {
+  return signatures.split(/\s+/).some((value) => {
     const actual = Buffer.from(value);
     return actual.length === expected.length && timingSafeEqual(actual, expected);
   });
