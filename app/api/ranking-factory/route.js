@@ -38,7 +38,7 @@ export async function POST(request) {
   } catch {
     return Response.json({ error: 'Invalid JSON.' }, { status: 400 });
   }
-  if (post.type !== 'post.created' || typeof post.title !== 'string' ||
+  if (!post || typeof post !== 'object' || Array.isArray(post) || typeof post.title !== 'string' ||
       typeof post.html !== 'string' || !post.title.trim() || !post.html.trim() ||
       post.title.length > 300 || post.html.length > 500000 ||
       (post.externalId != null && typeof post.externalId !== 'string')) {
