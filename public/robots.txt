@@ -40,8 +40,9 @@ Disallow: /
 User-agent: CCBot
 Disallow: /
 
+# Google-Extended is allowed for Google's AI grounding and related uses
 User-agent: Google-Extended
-Disallow: /
+Allow: /
 
 User-agent: Bytespider
 Disallow: /
