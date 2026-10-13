@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
+import { database, ensureDraftTable, slugFromTitle } from '@/lib/ranking-factory-db';
 
 export const runtime = 'nodejs';
 
@@ -31,9 +32,44 @@ export async function POST(request) {
   if (!verify(request, rawBody, secret)) {
     return Response.json({ error: 'Invalid webhook signature.' }, { status: 401 });
   }
-  // Fail closed until persistent draft storage and a review workflow are configured.
-  // Never report success or a published URL for content that was not saved.
-  return Response.json({ error: 'Draft storage is not configured yet.' }, { status: 503 });
+  let post;
+  try {
+    post = JSON.parse(rawBody);
+  } catch {
+    return Response.json({ error: 'Invalid JSON.' }, { status: 400 });
+  }
+  if (post.type !== 'post.created' || typeof post.title !== 'string' ||
+      typeof post.html !== 'string' || !post.title.trim() || !post.html.trim() ||
+      post.title.length > 300 || post.html.length > 500000 ||
+      (post.externalId != null && typeof post.externalId !== 'string')) {
+    return Response.json({ error: 'Invalid article payload.' }, { status: 400 });
+  }
+  try {
+    const sql = database();
+    await ensureDraftTable(sql);
+    const externalId = post.externalId || null;
+    if (externalId) {
+      const existing = await sql`SELECT slug, status FROM ranking_factory_drafts WHERE external_id = ${externalId} LIMIT 1`;
+      if (existing.length) return Response.json({ status: existing[0].status, slug: existing[0].slug });
+    }
+    const slug = slugFromTitle(post.title) + '-' +
+      createHmac('sha256', 'rf-draft-slug').update(externalId || rawBody).digest('hex').slice(0, 10);
+    await sql`
+      INSERT INTO ranking_factory_drafts
+        (external_id, slug, title, html, excerpt, image_url, video_url, section, category, source)
+      VALUES (
+        ${externalId}, ${slug}, ${post.title}, ${post.html},
+        ${post.excerpt || null}, ${post.imageUrl || null}, ${post.videoUrl || null},
+        ${post.section || null}, ${post.category || null}, ${post.source || null}
+      )
+      ON CONFLICT (slug) DO NOTHING
+    `;
+    // Deliberately return no URL: content is saved for review, not public.
+    return Response.json({ status: 'draft', slug });
+  } catch (error) {
+    console.error('Ranking Factory draft storage failed:', error.message);
+    return Response.json({ error: 'Could not save draft.' }, { status: 503 });
+  }
 }
 
 export async function PUT() {
