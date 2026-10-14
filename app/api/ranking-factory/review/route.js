@@ -37,7 +37,7 @@ export async function GET(request) {
     await ensureDraftTable(sql);
     const drafts = await sql`SELECT slug,title,html,status,created_at FROM ranking_factory_drafts ORDER BY created_at DESC LIMIT 100`;
     const body = drafts.length ? drafts.map(d => {
-      const preview = sanitizeHtml(d.html, { allowedTags: [], allowedAttributes: {} }).slice(0, 3500);
+      const preview = sanitizeHtml(d.html, { allowedTags: [], allowedAttributes: {} });
       return '<section style="border:1px solid #aaa;padding:20px;margin:20px 0"><h2>' + escapeHtml(d.title) +
         '</h2><p>Status: <strong>' + escapeHtml(d.status) + '</strong></p><details><summary>Read article text</summary><div style="white-space:pre-wrap">' +
         escapeHtml(preview) + '</div></details>' +
