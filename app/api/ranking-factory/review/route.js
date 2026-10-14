@@ -7,12 +7,14 @@ export const dynamic = 'force-dynamic';
 
 function authorized(request) {
   const expected = process.env.RANKING_FACTORY_ADMIN_PASSWORD;
-  if (!expected || expected.length < 16) return false;
+  if (!expected) return false;
   const header = request.headers.get('authorization') || '';
   if (!header.startsWith('Basic ')) return false;
   let decoded;
   try { decoded = Buffer.from(header.slice(6), 'base64').toString('utf8'); } catch { return false; }
-  const password = decoded.slice(decoded.indexOf(':') + 1);
+  const colon = decoded.indexOf(':');
+  if (colon < 0) return false;
+  const password = decoded.slice(colon + 1);
   const a = Buffer.from(password);
   const b = Buffer.from(expected);
   return a.length === b.length && timingSafeEqual(a, b);
